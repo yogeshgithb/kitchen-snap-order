@@ -3,11 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 interface HeaderProps {
-  cartItemCount: number;
-  onCartClick: () => void;
+  cartItemCount?: number;
+  onCartClick?: () => void;
 }
 
-export const Header = ({ cartItemCount, onCartClick }: HeaderProps) => {
+export const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
   return (
     <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50 shadow-soft">
       <div className="container mx-auto px-4 py-4">
@@ -25,19 +25,21 @@ export const Header = ({ cartItemCount, onCartClick }: HeaderProps) => {
             </div>
           </div>
           
-          <Button
-            variant="cart"
-            onClick={onCartClick}
-            className="relative"
-          >
-            <ShoppingCart className="h-4 w-4" />
-            {cartItemCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {cartItemCount}
-              </span>
-            )}
-            Cart
-          </Button>
+          {onCartClick && (
+            <Button
+              variant="cart"
+              onClick={onCartClick}
+              className="relative"
+            >
+              <ShoppingCart className="h-4 w-4" />
+              {cartItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {cartItemCount}
+                </span>
+              )}
+              Cart
+            </Button>
+          )}
         </div>
       </div>
     </header>
