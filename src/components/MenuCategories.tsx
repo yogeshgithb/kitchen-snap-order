@@ -6,8 +6,9 @@ const categories = [
   { id: "mains", name: "Main Dishes", icon: "🍖" },
   { id: "pizzas", name: "Pizzas", icon: "🍕" },
   { id: "salads", name: "Salads", icon: "🥗" },
+  { id: "appetizers", name: "Appetizers", icon: "🥟" },
   { id: "desserts", name: "Desserts", icon: "🍰" },
-  { id: "drinks", name: "Beverages", icon: "🥤" },
+  { id: "beverages", name: "Beverages", icon: "🥤" },
 ];
 
 interface MenuCategoriesProps {
