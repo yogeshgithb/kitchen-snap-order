@@ -4,6 +4,7 @@ import { HeroSection } from "@/components/HeroSection";
 import { MenuCategories } from "@/components/MenuCategories";
 import { MenuGrid, MenuItem } from "@/components/MenuGrid";
 import { CartSidebar, CartItem } from "@/components/CartSidebar";
+import { Footer } from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -94,6 +95,8 @@ const Index = () => {
         onRemoveItem={handleRemoveItem}
         onCheckout={handleCheckout}
       />
+
+      <Footer />
     </div>
   );
 };
