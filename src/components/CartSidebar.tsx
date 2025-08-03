@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Trash2, Plus, Minus } from "lucide-react";
-import { MenuItem } from "./MenuGrid";
+import { MenuItem } from "@/data/restaurants";
 
 export interface CartItem extends MenuItem {
   quantity: number;
@@ -123,7 +123,7 @@ export const CartSidebar = ({
             </div>
             
             <Button 
-              variant="hero" 
+              variant="default" 
               className="w-full" 
               size="lg"
               onClick={onCheckout}
