@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { ShoppingCart, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,8 +9,39 @@ interface HeaderProps {
 }
 
 export const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const controlNavbar = () => {
+      if (typeof window !== 'undefined') {
+        if (window.scrollY > lastScrollY && window.scrollY > 100) {
+          // if scroll down hide the navbar
+          setIsVisible(false);
+        } else {
+          // if scroll up show the navbar
+          setIsVisible(true);
+        }
+        
+        // remember current page location to use in the next move
+        setLastScrollY(window.scrollY);
+      }
+    };
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', controlNavbar);
+
+      // cleanup function
+      return () => {
+        window.removeEventListener('scroll', controlNavbar);
+      };
+    }
+  }, [lastScrollY]);
+
   return (
-    <header className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50 shadow-soft">
+    <header className={`bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-50 shadow-soft transition-transform duration-300 ${
+      isVisible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
@@ -27,7 +59,7 @@ export const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
           
           {onCartClick && (
             <Button
-              variant="cart"
+              variant="outline"
               onClick={onCartClick}
               className="relative"
             >

@@ -20,19 +20,30 @@ export const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Contact Us</h4>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4" />
-                <span className="text-sm">123 Food Street, City 12345</span>
+            <h4 className="text-lg font-semibold mb-4 text-accent">Contact Us</h4>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors">
+                <MapPin className="h-5 w-5 mt-1 text-accent flex-shrink-0" />
+                <div>
+                  <div className="font-medium text-sm">Address</div>
+                  <span className="text-sm text-primary-foreground/80">123 Food Street, Downtown<br />New York, NY 12345</span>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="h-4 w-4" />
-                <span className="text-sm">+1 (555) 123-4567</span>
+              <div className="flex items-start gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors cursor-pointer">
+                <Phone className="h-5 w-5 mt-1 text-accent flex-shrink-0" />
+                <div>
+                  <div className="font-medium text-sm">Phone</div>
+                  <span className="text-sm text-primary-foreground/80">+1 (555) 123-4567</span>
+                  <div className="text-xs text-primary-foreground/60">24/7 Customer Support</div>
+                </div>
               </div>
-              <div className="flex items-center gap-3">
-                <Mail className="h-4 w-4" />
-                <span className="text-sm">info@kitchenorder.com</span>
+              <div className="flex items-start gap-3 hover:bg-white/10 p-2 rounded-lg transition-colors cursor-pointer">
+                <Mail className="h-5 w-5 mt-1 text-accent flex-shrink-0" />
+                <div>
+                  <div className="font-medium text-sm">Email</div>
+                  <span className="text-sm text-primary-foreground/80">info@kitchensnap.com</span>
+                  <div className="text-xs text-primary-foreground/60">We'll respond within 24 hours</div>
+                </div>
               </div>
             </div>
           </div>
