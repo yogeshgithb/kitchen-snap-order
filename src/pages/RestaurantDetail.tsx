@@ -6,9 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { Header } from "@/components/Header";
+import { MainLayout } from "@/layouts/MainLayout";
 import { CartSidebar, CartItem } from "@/components/CartSidebar";
-import { Footer } from "@/components/Footer";
 import { restaurants, generateMenuItems, MenuItem } from "@/data/restaurants";
 import { useToast } from "@/hooks/use-toast";
 
@@ -112,11 +111,10 @@ const RestaurantDetail = () => {
   const cartItemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header 
-        cartItemCount={cartItemCount}
-        onCartClick={() => setIsCartOpen(true)}
-      />
+    <MainLayout 
+      cartItemCount={cartItemCount}
+      onCartClick={() => setIsCartOpen(true)}
+    >
 
       {/* Restaurant Hero */}
       <div className="relative h-64 md:h-80">
@@ -316,9 +314,7 @@ const RestaurantDetail = () => {
         onRemoveItem={handleRemoveItem}
         onCheckout={handleCheckout}
       />
-
-      <Footer />
-    </div>
+    </MainLayout>
   );
 };
 

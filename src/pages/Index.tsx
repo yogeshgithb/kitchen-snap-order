@@ -1,15 +1,16 @@
 import { useState, useMemo } from "react";
-import { Header } from "@/components/Header";
+import { MainLayout } from "@/layouts/MainLayout";
 import { HeroSection } from "@/components/HeroSection";
+import { MenuCategories } from "@/components/MenuCategories";
 import { SearchFilters } from "@/components/SearchFilters";
 import { RestaurantCard } from "@/components/RestaurantCard";
-import { Footer } from "@/components/Footer";
 import { restaurants } from "@/data/restaurants";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCuisines, setSelectedCuisines] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState("all");
   const [sortBy, setSortBy] = useState("rating");
   const [ratingFilter, setRatingFilter] = useState(0);
   const [priceRange, setPriceRange] = useState([0, 10]);
@@ -82,10 +83,13 @@ const Index = () => {
   }, [searchQuery, selectedCuisines, sortBy, ratingFilter, priceRange, deliveryTimeFilter]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      
+    <MainLayout>
       <HeroSection />
+      
+      <MenuCategories 
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+      />
       
       <SearchFilters
         searchQuery={searchQuery}
@@ -102,7 +106,7 @@ const Index = () => {
         onDeliveryTimeChange={setDeliveryTimeFilter}
       />
 
-      <main className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold">
             {filteredRestaurants.length} Restaurant{filteredRestaurants.length !== 1 ? 's' : ''} 
@@ -122,10 +126,8 @@ const Index = () => {
             <p className="text-muted-foreground">Try adjusting your search criteria or filters</p>
           </div>
         )}
-      </main>
-
-      <Footer />
-    </div>
+      </section>
+    </MainLayout>
   );
 };
 
