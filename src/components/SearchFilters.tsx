@@ -38,7 +38,7 @@ export const SearchFilters = ({
   onDeliveryTimeChange
 }: SearchFiltersProps) => {
   return (
-    <div className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-[88px] z-40 py-4">
+    <div className="bg-background/95 backdrop-blur-sm border-b border-border sticky top-0 z-40 py-4">
       <div className="container mx-auto px-4">
         {/* Search Bar */}
         <div className="relative mb-4">
