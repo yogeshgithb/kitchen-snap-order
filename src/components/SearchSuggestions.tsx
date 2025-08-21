@@ -13,32 +13,45 @@ export const SearchSuggestions = ({ onItemSelect, children }: SearchSuggestionsP
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState("");
   
-  const allItems = useMemo(() => getAllMenuItems(), []);
+  const allItems = useMemo(() => {
+    try {
+      return getAllMenuItems() || [];
+    } catch (error) {
+      console.error('Error loading menu items:', error);
+      return [];
+    }
+  }, []);
   
   const suggestions = useMemo(() => {
-    if (!inputValue || inputValue.length < 2) {
+    if (!inputValue || inputValue.length < 2 || !allItems || allItems.length === 0) {
       return { items: [], categories: [] };
     }
     
-    const query = inputValue.toLowerCase();
-    const itemMatches = allItems
-      .filter(item => 
-        item.name.toLowerCase().includes(query) ||
-        item.description.toLowerCase().includes(query) ||
-        item.category.toLowerCase().includes(query)
-      )
-      .slice(0, 8);
-    
-    // Get unique categories and cuisines that match
-    const categories = [...new Set(allItems
-      .filter(item => item.category.toLowerCase().includes(query))
-      .map(item => item.category)
-    )].slice(0, 3);
-    
-    return {
-      items: itemMatches,
-      categories
-    };
+    try {
+      const query = inputValue.toLowerCase();
+      const itemMatches = allItems
+        .filter(item => 
+          item?.name?.toLowerCase().includes(query) ||
+          item?.description?.toLowerCase().includes(query) ||
+          item?.category?.toLowerCase().includes(query)
+        )
+        .slice(0, 8);
+      
+      // Get unique categories and cuisines that match
+      const categories = [...new Set(allItems
+        .filter(item => item?.category?.toLowerCase().includes(query))
+        .map(item => item.category)
+        .filter(Boolean)
+      )].slice(0, 3);
+      
+      return {
+        items: itemMatches || [],
+        categories: categories || []
+      };
+    } catch (error) {
+      console.error('Error filtering suggestions:', error);
+      return { items: [], categories: [] };
+    }
   }, [inputValue, allItems]);
 
   return (
@@ -58,7 +71,7 @@ export const SearchSuggestions = ({ onItemSelect, children }: SearchSuggestionsP
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
             
-            {suggestions.items.length > 0 && (
+            {suggestions?.items?.length > 0 && (
               <CommandGroup heading="Menu Items">
                 {suggestions.items.map((item) => (
                   <CommandItem
@@ -87,7 +100,7 @@ export const SearchSuggestions = ({ onItemSelect, children }: SearchSuggestionsP
               </CommandGroup>
             )}
             
-            {suggestions.categories.length > 0 && (
+            {suggestions?.categories?.length > 0 && (
               <CommandGroup heading="Categories">
                 {suggestions.categories.map((category) => (
                   <CommandItem
