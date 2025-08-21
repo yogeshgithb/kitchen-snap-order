@@ -213,13 +213,42 @@ export const generateMenuItems = (restaurantId: string): MenuItem[] => {
 
   const baseItems = itemsByRestaurant[restaurantId as keyof typeof itemsByRestaurant] || itemsByRestaurant["1"];
   
+  const getImageForCategory = (category: string, itemName: string) => {
+    const name = itemName.toLowerCase();
+    
+    // Specific food type mappings
+    if (name.includes('pizza')) return '/src/assets/pizza.jpg';
+    if (name.includes('burger')) return '/src/assets/burger.jpg';
+    if (name.includes('salad')) return '/src/assets/salad.jpg';
+    if (name.includes('curry') || name.includes('chicken') || name.includes('biryani') || name.includes('dal')) return '/src/assets/curry.jpg';
+    if (name.includes('sushi') || name.includes('sashimi') || name.includes('roll') || name.includes('tempura')) return '/src/assets/sushi.jpg';
+    if (name.includes('taco') || name.includes('burrito') || name.includes('quesadilla') || name.includes('nachos')) return '/src/assets/tacos.jpg';
+    if (name.includes('pasta') || name.includes('carbonara') || name.includes('spaghetti')) return '/src/assets/pasta.jpg';
+    
+    // Category-based fallbacks
+    switch (category) {
+      case 'pizzas': return '/src/assets/pizza.jpg';
+      case 'salads': return '/src/assets/salad.jpg';
+      case 'appetizers': return '/src/assets/appetizers.jpg';
+      case 'desserts': return '/src/assets/desserts.jpg';
+      case 'beverages': return '/src/assets/beverages.jpg';
+      case 'mains': 
+        if (restaurantId === '1') return '/src/assets/curry.jpg';
+        if (restaurantId === '2') return '/src/assets/pasta.jpg';
+        if (restaurantId === '5') return '/src/assets/sushi.jpg';
+        if (restaurantId === '6') return '/src/assets/tacos.jpg';
+        return '/src/assets/burger.jpg';
+      default: return '/src/assets/hero-food.jpg';
+    }
+  };
+
   baseItems.forEach((item, index) => {
     items.push({
       id: `${restaurantId}-${index + 1}`,
       name: item.name,
       description: item.desc,
       price: item.price,
-      image: `/src/assets/${item.category === 'pizzas' ? 'pizza' : item.category === 'salads' ? 'salad' : 'burger'}.jpg`,
+      image: getImageForCategory(item.category, item.name),
       category: item.category,
       isVeg: item.isVeg,
       isSpicy: Math.random() > 0.7,
@@ -236,12 +265,29 @@ export const generateMenuItems = (restaurantId: string): MenuItem[] => {
     const category = categories[Math.floor(Math.random() * categories.length)];
     const itemNumber = i + 1;
     
+    const getImageForAdditionalItem = (category: string) => {
+      switch (category) {
+        case 'pizzas': return '/src/assets/pizza.jpg';
+        case 'salads': return '/src/assets/salad.jpg';
+        case 'appetizers': return '/src/assets/appetizers.jpg';
+        case 'desserts': return '/src/assets/desserts.jpg';
+        case 'beverages': return '/src/assets/beverages.jpg';
+        case 'mains':
+          if (restaurantId === '1') return '/src/assets/curry.jpg';
+          if (restaurantId === '2') return '/src/assets/pasta.jpg';
+          if (restaurantId === '5') return '/src/assets/sushi.jpg';
+          if (restaurantId === '6') return '/src/assets/tacos.jpg';
+          return '/src/assets/burger.jpg';
+        default: return '/src/assets/hero-food.jpg';
+      }
+    };
+
     items.push({
       id: `${restaurantId}-${itemNumber}`,
       name: `${restaurantNames[restaurantId as keyof typeof restaurantNames]} Special ${itemNumber}`,
       description: `Delicious ${category} item made with premium ingredients and our special recipe.`,
       price: 8.99 + Math.random() * 15,
-      image: `/src/assets/${category === 'pizzas' ? 'pizza' : category === 'salads' ? 'salad' : 'burger'}.jpg`,
+      image: getImageForAdditionalItem(category),
       category,
       isVeg: Math.random() > 0.6,
       isSpicy: Math.random() > 0.7,

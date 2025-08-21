@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { SearchSuggestions } from "@/components/SearchSuggestions";
 
 interface SearchFiltersProps {
   searchQuery: string;
@@ -42,13 +43,17 @@ export const SearchFilters = ({
       <div className="container mx-auto px-4">
         {/* Search Bar */}
         <div className="relative mb-4">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search restaurants, cuisines, or dishes..."
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="pl-10 pr-4 h-12 text-base"
-          />
+          <SearchSuggestions onItemSelect={onSearchChange}>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search restaurants, cuisines, or dishes..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="pl-10 pr-4 h-12 text-base cursor-pointer"
+              />
+            </div>
+          </SearchSuggestions>
         </div>
 
         {/* Filters */}
