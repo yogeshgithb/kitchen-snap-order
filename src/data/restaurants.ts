@@ -1,3 +1,16 @@
+// Import all food images
+import burgerImg from '@/assets/burger.jpg';
+import pizzaImg from '@/assets/pizza.jpg';
+import saladImg from '@/assets/salad.jpg';
+import pastaImg from '@/assets/pasta.jpg';
+import sushiImg from '@/assets/sushi.jpg';
+import tacosImg from '@/assets/tacos.jpg';
+import curryImg from '@/assets/curry.jpg';
+import appetizersImg from '@/assets/appetizers.jpg';
+import dessertsImg from '@/assets/desserts.jpg';
+import beveragesImg from '@/assets/beverages.jpg';
+import heroFoodImg from '@/assets/hero-food.jpg';
+
 export interface Restaurant {
   id: string;
   name: string;
@@ -34,7 +47,7 @@ export const restaurants: Restaurant[] = [
   {
     id: "1",
     name: "Spice Kingdom",
-    image: "/src/assets/hero-food.jpg",
+    image: heroFoodImg,
     cuisine: ["Indian", "Spicy", "Vegetarian"],
     rating: 4.5,
     reviewCount: 1250,
@@ -51,7 +64,7 @@ export const restaurants: Restaurant[] = [
   {
     id: "2", 
     name: "Bella Pizzeria",
-    image: "/src/assets/pizza.jpg",
+    image: pizzaImg,
     cuisine: ["Italian", "Pizza", "Pasta"],
     rating: 4.3,
     reviewCount: 890,
@@ -68,7 +81,7 @@ export const restaurants: Restaurant[] = [
   {
     id: "3",
     name: "Burger Junction",
-    image: "/src/assets/burger.jpg", 
+    image: burgerImg,
     cuisine: ["American", "Burgers", "Fast Food"],
     rating: 4.1,
     reviewCount: 2100,
@@ -85,7 +98,7 @@ export const restaurants: Restaurant[] = [
   {
     id: "4",
     name: "Fresh Garden",
-    image: "/src/assets/salad.jpg",
+    image: saladImg,
     cuisine: ["Healthy", "Salads", "Vegan"],
     rating: 4.7,
     reviewCount: 560,
@@ -102,7 +115,7 @@ export const restaurants: Restaurant[] = [
   {
     id: "5",
     name: "Tokyo Sushi Bar",
-    image: "/src/assets/hero-food.jpg",
+    image: sushiImg,
     cuisine: ["Japanese", "Sushi", "Seafood"],
     rating: 4.6,
     reviewCount: 780,
@@ -119,7 +132,7 @@ export const restaurants: Restaurant[] = [
   {
     id: "6",
     name: "Taco Fiesta",
-    image: "/src/assets/burger.jpg",
+    image: tacosImg,
     cuisine: ["Mexican", "Tacos", "Spicy"],
     rating: 4.2,
     reviewCount: 1320,
@@ -217,28 +230,28 @@ export const generateMenuItems = (restaurantId: string): MenuItem[] => {
     const name = itemName.toLowerCase();
     
     // Specific food type mappings
-    if (name.includes('pizza')) return '/src/assets/pizza.jpg';
-    if (name.includes('burger')) return '/src/assets/burger.jpg';
-    if (name.includes('salad')) return '/src/assets/salad.jpg';
-    if (name.includes('curry') || name.includes('chicken') || name.includes('biryani') || name.includes('dal')) return '/src/assets/curry.jpg';
-    if (name.includes('sushi') || name.includes('sashimi') || name.includes('roll') || name.includes('tempura')) return '/src/assets/sushi.jpg';
-    if (name.includes('taco') || name.includes('burrito') || name.includes('quesadilla') || name.includes('nachos')) return '/src/assets/tacos.jpg';
-    if (name.includes('pasta') || name.includes('carbonara') || name.includes('spaghetti')) return '/src/assets/pasta.jpg';
+    if (name.includes('pizza')) return pizzaImg;
+    if (name.includes('burger')) return burgerImg;
+    if (name.includes('salad')) return saladImg;
+    if (name.includes('curry') || name.includes('chicken') || name.includes('biryani') || name.includes('dal')) return curryImg;
+    if (name.includes('sushi') || name.includes('sashimi') || name.includes('roll') || name.includes('tempura')) return sushiImg;
+    if (name.includes('taco') || name.includes('burrito') || name.includes('quesadilla') || name.includes('nachos')) return tacosImg;
+    if (name.includes('pasta') || name.includes('carbonara') || name.includes('spaghetti')) return pastaImg;
     
     // Category-based fallbacks
     switch (category) {
-      case 'pizzas': return '/src/assets/pizza.jpg';
-      case 'salads': return '/src/assets/salad.jpg';
-      case 'appetizers': return '/src/assets/appetizers.jpg';
-      case 'desserts': return '/src/assets/desserts.jpg';
-      case 'beverages': return '/src/assets/beverages.jpg';
+      case 'pizzas': return pizzaImg;
+      case 'salads': return saladImg;
+      case 'appetizers': return appetizersImg;
+      case 'desserts': return dessertsImg;
+      case 'beverages': return beveragesImg;
       case 'mains': 
-        if (restaurantId === '1') return '/src/assets/curry.jpg';
-        if (restaurantId === '2') return '/src/assets/pasta.jpg';
-        if (restaurantId === '5') return '/src/assets/sushi.jpg';
-        if (restaurantId === '6') return '/src/assets/tacos.jpg';
-        return '/src/assets/burger.jpg';
-      default: return '/src/assets/hero-food.jpg';
+        if (restaurantId === '1') return curryImg;
+        if (restaurantId === '2') return pastaImg;
+        if (restaurantId === '5') return sushiImg;
+        if (restaurantId === '6') return tacosImg;
+        return burgerImg;
+      default: return heroFoodImg;
     }
   };
 
@@ -267,18 +280,18 @@ export const generateMenuItems = (restaurantId: string): MenuItem[] => {
     
     const getImageForAdditionalItem = (category: string) => {
       switch (category) {
-        case 'pizzas': return '/src/assets/pizza.jpg';
-        case 'salads': return '/src/assets/salad.jpg';
-        case 'appetizers': return '/src/assets/appetizers.jpg';
-        case 'desserts': return '/src/assets/desserts.jpg';
-        case 'beverages': return '/src/assets/beverages.jpg';
+        case 'pizzas': return pizzaImg;
+        case 'salads': return saladImg;
+        case 'appetizers': return appetizersImg;
+        case 'desserts': return dessertsImg;
+        case 'beverages': return beveragesImg;
         case 'mains':
-          if (restaurantId === '1') return '/src/assets/curry.jpg';
-          if (restaurantId === '2') return '/src/assets/pasta.jpg';
-          if (restaurantId === '5') return '/src/assets/sushi.jpg';
-          if (restaurantId === '6') return '/src/assets/tacos.jpg';
-          return '/src/assets/burger.jpg';
-        default: return '/src/assets/hero-food.jpg';
+          if (restaurantId === '1') return curryImg;
+          if (restaurantId === '2') return pastaImg;
+          if (restaurantId === '5') return sushiImg;
+          if (restaurantId === '6') return tacosImg;
+          return burgerImg;
+        default: return heroFoodImg;
       }
     };
 
