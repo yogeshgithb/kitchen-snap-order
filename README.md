@@ -1,73 +1,146 @@
-# Welcome to your Lovable project
+Aapko **poora README.md file** copy karna hai — jahan se `# Kitchen Snap Order` se start hota hai, wahan se leke **last line** `GitHub: [@yogeshgithb](https://github.com/yogeshgithb)` tak.
 
-## Project info
+### ✅ Steps:
 
-**URL**: https://lovable.dev/projects/0d225ea5-8180-4131-b640-a64c18ff99d8
+1. Niche diya gaya **poora content select** kijiye (double-click se ya mouse se drag karke).
+2. **Right click → Copy** ya `Ctrl + C` press kijiye.
+3. GitHub pe apne repo `kitchen-snap-order` open kijiye.
+4. `README.md` file pe click kijiye.
+5. ✏️ **Edit icon** pe click karein.
+6. Purana content **delete** karke naya paste karein (`Ctrl + V`).
+7. Neeche “Commit changes” button dabaiye.
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+### 🔽 Ye poora content copy karna hai:
 
-**Use Lovable**
+```markdown
+# Kitchen Snap Order
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0d225ea5-8180-4131-b640-a64c18ff99d8) and start prompting.
+A modern, responsive web application to streamline kitchen or food ordering using image-based input. Just snap, recognize, and order — all in a few clicks!
 
-Changes made via Lovable will be committed automatically to this repo.
+🔗 **Live Site**: [https://kitchen64.netlify.app](https://kitchen64.netlify.app)
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🚀 Tech Stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **Framework:** React (with Vite)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn-ui
+- **Build Tool:** Vite
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## ✨ Features
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- 📷 Snap a photo to identify menu items
+- ⚡ Fast and lightweight interface
+- 📱 Fully responsive (Mobile + Desktop)
+- 🧠 Smart UI with reusable components
+- 💅 Clean and modern design using Tailwind CSS
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## 📁 Project Structure
+
+```
+
+kitchen-snap-order/
+├── public/              # Static files
+├── src/
+│   ├── components/      # Reusable UI components
+│   ├── pages/           # App pages/views
+│   ├── assets/          # Images, icons
+│   ├── App.tsx          # Main App component
+│   └── main.tsx         # Entry point
+├── index.html
+├── package.json
+├── tailwind.config.ts
+├── tsconfig.json
+├── vite.config.ts
+└── README.md
+
+````
+
+---
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js (v16+ recommended)
+- npm or yarn
+
+### Installation
+
+```bash
+git clone https://github.com/yogeshgithb/kitchen-snap-order.git
+cd kitchen-snap-order
+npm install
+````
+
+### Run Development Server
+
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+This will start the app at: `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+---
 
-**Use GitHub Codespaces**
+## 📦 Build for Production
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+npm run build
+```
 
-## What technologies are used for this project?
+To preview the production build locally:
 
-This project is built with:
+```bash
+npm run preview
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 🌐 Deployment (via Netlify or Vercel)
 
-Simply open [Lovable](https://lovable.dev/projects/0d225ea5-8180-4131-b640-a64c18ff99d8) and click on Share -> Publish.
+1. Push your repo to GitHub
+2. Connect it to Netlify
+3. Set build command: `npm run build`
+4. Set publish directory: `dist/`
+5. Deploy and done!
 
-## Can I connect a custom domain to my Lovable project?
+---
 
-Yes, you can!
+## 🤝 Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Contributions are welcome!
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+1. Fork this repo
+2. Create a new branch: `git checkout -b feature/feature-name`
+3. Make changes and commit: `git commit -m "Added new feature"`
+4. Push to branch: `git push origin feature/feature-name`
+5. Submit a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+Feel free to use and modify it for personal or commercial use.
+
+---
+
+## 👤 Author
+
+* **Yogesh**
+* GitHub: [@yogeshgithb](https://github.com/yogeshgithb)
+
+```
+
+---
+
+```
