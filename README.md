@@ -1,20 +1,4 @@
-Aapko **poora README.md file** copy karna hai — jahan se `# Kitchen Snap Order` se start hota hai, wahan se leke **last line** `GitHub: [@yogeshgithb](https://github.com/yogeshgithb)` tak.
 
-### ✅ Steps:
-
-1. Niche diya gaya **poora content select** kijiye (double-click se ya mouse se drag karke).
-2. **Right click → Copy** ya `Ctrl + C` press kijiye.
-3. GitHub pe apne repo `kitchen-snap-order` open kijiye.
-4. `README.md` file pe click kijiye.
-5. ✏️ **Edit icon** pe click karein.
-6. Purana content **delete** karke naya paste karein (`Ctrl + V`).
-7. Neeche “Commit changes” button dabaiye.
-
----
-
-### 🔽 Ye poora content copy karna hai:
-
-```markdown
 # Kitchen Snap Order
 
 A modern, responsive web application to streamline kitchen or food ordering using image-based input. Just snap, recognize, and order — all in a few clicks!
@@ -139,8 +123,3 @@ Feel free to use and modify it for personal or commercial use.
 * **Yogesh**
 * GitHub: [@yogeshgithb](https://github.com/yogeshgithb)
 
-```
-
----
-
-```
