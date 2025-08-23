@@ -5,9 +5,21 @@ import { MenuCategories } from "@/components/MenuCategories";
 import { SearchFilters } from "@/components/SearchFilters";
 import { RestaurantCard } from "@/components/RestaurantCard";
 import { MenuItemCard } from "@/components/MenuItemCard";
+import { OrderConfirmation } from "@/components/OrderConfirmation";
 import { restaurants, getAllMenuItems } from "@/data/restaurants";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { ShoppingCart } from "lucide-react";
+
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+  restaurantName: string;
+}
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -18,9 +30,21 @@ const Index = () => {
   const [priceRange, setPriceRange] = useState([0, 10]);
   const [deliveryTimeFilter, setDeliveryTimeFilter] = useState("all");
   const [activeTab, setActiveTab] = useState("restaurants");
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
   const { toast } = useToast();
 
   const allMenuItems = useMemo(() => getAllMenuItems(), []);
+
+  // Filter menu items by category for menu categories section
+  const filteredMenuItemsByCategory = useMemo(() => {
+    if (activeCategory === "all") return allMenuItems;
+    return allMenuItems.filter(item => item.category.toLowerCase() === activeCategory.toLowerCase());
+  }, [allMenuItems, activeCategory]);
+
+  const cartTotal = useMemo(() => {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  }, [cart]);
 
   const handleCuisineToggle = (cuisine: string) => {
     setSelectedCuisines(prev =>
@@ -101,20 +125,119 @@ const Index = () => {
   }, [searchQuery, allMenuItems]);
 
   const handleAddToCart = (item: any) => {
+    const restaurant = restaurants.find(r => r.id === item.restaurantId);
+    
+    setCart(prevCart => {
+      const existingItem = prevCart.find(cartItem => cartItem.id === item.id);
+      
+      if (existingItem) {
+        return prevCart.map(cartItem =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        );
+      } else {
+        return [...prevCart, {
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: 1,
+          image: item.image,
+          restaurantName: restaurant?.name || "Unknown Restaurant"
+        }];
+      }
+    });
+
     toast({
       title: "Added to cart",
       description: `${item.name} has been added to your cart.`,
     });
   };
 
+  const handleCartClick = () => {
+    if (cart.length === 0) {
+      toast({
+        title: "Empty Cart",
+        description: "Please add some items to your cart first.",
+        variant: "destructive"
+      });
+      return;
+    }
+    setShowOrderConfirmation(true);
+  };
+
+  const handleOrderConfirmationClose = () => {
+    setShowOrderConfirmation(false);
+    setCart([]); // Clear cart after order
+  };
+
+  const handleOrderNow = () => {
+    setActiveTab("restaurants");
+    const menuSection = document.getElementById('menu-section');
+    if (menuSection) {
+      menuSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleViewMenu = () => {
+    setActiveCategory("all");
+    const browseSection = document.getElementById('browse-menu');
+    if (browseSection) {
+      browseSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <MainLayout>
-      <HeroSection />
-      
-      <MenuCategories 
-        activeCategory={activeCategory}
-        onCategoryChange={setActiveCategory}
+    <MainLayout 
+      searchQuery={searchQuery}
+      onSearchChange={setSearchQuery}
+      cartItemCount={cart.length}
+      onCartClick={handleCartClick}
+    >
+      <HeroSection 
+        onOrderNow={handleOrderNow}
+        onViewMenu={handleViewMenu}
       />
+      
+      <div id="browse-menu">
+        <MenuCategories 
+          activeCategory={activeCategory}
+          onCategoryChange={setActiveCategory}
+        />
+        
+        {/* Menu Items by Category */}
+        <section className="container mx-auto px-4 py-8">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold">
+              {activeCategory === "all" ? "All Menu Items" : `${activeCategory.charAt(0).toUpperCase() + activeCategory.slice(1)}`}
+            </h2>
+            {cart.length > 0 && (
+              <Button 
+                onClick={handleCartClick}
+                variant="cart"
+                className="gap-2"
+              >
+                <ShoppingCart className="h-4 w-4" />
+                View Cart ({cart.length})
+              </Button>
+            )}
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredMenuItemsByCategory.slice(0, 12).map((item) => {
+              const restaurant = restaurants.find(r => r.id === item.restaurantId);
+              return (
+                <MenuItemCard 
+                  key={item.id} 
+                  item={item} 
+                  restaurantName={restaurant?.name || "Unknown Restaurant"}
+                  onAddToCart={handleAddToCart}
+                />
+              );
+            })}
+          </div>
+        </section>
+      </div>
       
       <SearchFilters
         searchQuery={searchQuery}
@@ -131,7 +254,7 @@ const Index = () => {
         onDeliveryTimeChange={setDeliveryTimeFilter}
       />
 
-      <section className="container mx-auto px-4 py-8">
+      <section id="menu-section" className="container mx-auto px-4 py-8">
         <Tabs value={searchQuery ? "menu-items" : activeTab} onValueChange={setActiveTab}>
           <TabsList className="mb-6">
             <TabsTrigger value="restaurants">Restaurants</TabsTrigger>
@@ -198,6 +321,13 @@ const Index = () => {
           </TabsContent>
         </Tabs>
       </section>
+
+      <OrderConfirmation
+        isOpen={showOrderConfirmation}
+        onClose={handleOrderConfirmationClose}
+        items={cart}
+        total={cartTotal}
+      />
     </MainLayout>
   );
 };

@@ -1,7 +1,36 @@
 import { Button } from "@/components/ui/button";
 import heroFood from "@/assets/hero-food.jpg";
 
-export const HeroSection = () => {
+interface HeroSectionProps {
+  onOrderNow?: () => void;
+  onViewMenu?: () => void;
+}
+
+export const HeroSection = ({ onOrderNow, onViewMenu }: HeroSectionProps) => {
+  const handleOrderNow = () => {
+    if (onOrderNow) {
+      onOrderNow();
+    } else {
+      // Default behavior - scroll to menu section
+      const menuSection = document.getElementById('menu-section');
+      if (menuSection) {
+        menuSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleViewMenu = () => {
+    if (onViewMenu) {
+      onViewMenu();
+    } else {
+      // Default behavior - scroll to browse menu section
+      const browseSection = document.getElementById('browse-menu');
+      if (browseSection) {
+        browseSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   return (
     <section className="relative h-[500px] bg-gradient-hero flex items-center justify-center overflow-hidden">
       <div 
@@ -22,10 +51,20 @@ export const HeroSection = () => {
           Experience gourmet cuisine crafted with love and delivered to your doorstep
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Button variant="hero" size="lg" className="text-lg px-8 py-3">
+          <Button 
+            variant="hero" 
+            size="lg" 
+            className="text-lg px-8 py-3"
+            onClick={handleOrderNow}
+          >
             Order Now
           </Button>
-          <Button variant="outline" size="lg" className="text-lg px-8 py-3 bg-white/10 border-white/30 text-white hover:bg-white/20">
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="text-lg px-8 py-3 bg-white/10 border-white/30 text-white hover:bg-white/20"
+            onClick={handleViewMenu}
+          >
             View Menu
           </Button>
         </div>

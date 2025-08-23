@@ -6,9 +6,11 @@ import { Input } from "@/components/ui/input";
 interface HeaderProps {
   cartItemCount?: number;
   onCartClick?: () => void;
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
 }
 
-export const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
+export const Header = ({ cartItemCount = 0, onCartClick, searchQuery = "", onSearchChange }: HeaderProps) => {
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
@@ -51,8 +53,10 @@ export const Header = ({ cartItemCount = 0, onCartClick }: HeaderProps) => {
             <div className="hidden md:flex items-center space-x-2 bg-secondary rounded-lg px-3 py-2">
               <Search className="h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search menu..."
-                className="border-0 bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground"
+                placeholder="Search restaurants, menu items..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange?.(e.target.value)}
+                className="border-0 bg-transparent focus-visible:ring-0 placeholder:text-muted-foreground w-64"
               />
             </div>
           </div>
